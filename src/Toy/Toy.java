@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class Toy {
     static int index = 0;
-    int id;
-    int frequency;
-    String toyType;
-    String note;
+    public int id;
+    public int frequency;
+    public String toyType;
+    public String note;
     public static ArrayList<Toy> toysList = new ArrayList<Toy>();
     public Toy(int frequency, String toyType, String note) {
         this.frequency = frequency;
@@ -27,6 +27,8 @@ public class Toy {
         Toy toy = new Toy(frequency, toyType, note);
         toysList.add(toy);
     }
+
+
 
     @Override
     public String toString() {
