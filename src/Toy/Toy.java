@@ -1,7 +1,6 @@
 package Toy;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Toy {
     static int index = 0;
@@ -22,10 +21,27 @@ public class Toy {
         int frequency = 0;
         String toyType = "";
         String note = "";
-
-        Scanner scanner = new Scanner(System.in);
         Toy toy = new Toy(frequency, toyType, note);
         toysList.add(toy);
+    }
+    public void delete(String id) {
+        toysList.remove(findById(id));
+    }
+
+    /**
+     * Метод поиска индекса игрушки с заданным значением поля id в массиве toysList
+     * @param id - заданный id
+     * @return index - индекс игрушки в массиве toysList
+     */
+    public static int findById(String id) {
+        int index = 0;
+        for (int i = 0; i < toysList.size(); i++) {
+            if (toysList.get(i).id == Integer.parseInt(id)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
 

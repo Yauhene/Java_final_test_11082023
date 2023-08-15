@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import static Toy.Toy.toysList;
+
 public class Assortment {
 
-    public static ArrayList<Toy> toysList = new ArrayList<>();
+//    public static ArrayList<Toy> toysList = new ArrayList<>();
 
-    public void addToy() {
+    public static void addToy() {
         boolean onceMore = true;
         String tempStr = "";
 
@@ -30,7 +32,7 @@ public class Assortment {
             onceMore = false;
             System.out.println("Введите вероятность выпадания игрушки, число: ");
             tempStr = scanner.nextLine();
-            if (tempStr.length() == 1 && tempStr.matches("[.0-9]+")) {
+            if (tempStr.length() <= 2 && tempStr.matches("[.0-9]+")) {
                 tFreq = Integer.parseInt(tempStr);
             } else {
                 System.out.println("Введено неверное значение, попробуем еще раз.");
@@ -61,7 +63,7 @@ public class Assortment {
 
     public static void toFile(String fileName) throws Exception {
 //        System.out.println("Пошли печатать в файл ================================");
-        ArrayList<Toy> arr = Toy.toysList;
+        ArrayList<Toy> arr = toysList;
         System.out.println("arr.size() = " + arr.size());
         String tempStr = "";
         FileWriter writer = new FileWriter(fileName);
@@ -74,8 +76,6 @@ public class Assortment {
 //                System.out.println("tempStr = " + tempStr);
                 writer.write(tempStr);
                 writer.append('\n');
-
-
             }
             writer.flush();
             writer.close();
@@ -95,7 +95,7 @@ public class Assortment {
                 String tStr = scanner.nextLine();
                 String tempStrArr[] = tStr.split(";");
                 Toy t = new Toy(Integer.parseInt(tempStrArr[1]), tempStrArr[2], tempStrArr[3]);
-                Toy.toysList.add(t);
+                toysList.add(t);
                 System.out.println(t);
             }
         } catch(Exception e) {
@@ -129,5 +129,33 @@ public class Assortment {
         }
     }
 
+    public static void accortmentPrompt() {
+        String str = "Выберите нужное действие, введя с клавиатуры соответствующую цифру:  " + "\n";
+        str += "1 - Добавить игрушку" + "\n";
+        str += "2 - Удалить игрушку" + "\n";
+        str += "3 - Редактировать игрушку" + "\n";
+        str += "клавиша 'Enter' - выйти в главное меню" + "\n";
+        str += "Ваш выбор:";
+        System.out.println(str);
+    }
+    public static void assortmentMenu() {
+        boolean getOut = false;
+        String str = "";
+        ArrayList<Toy> arr = toysList;
+        accortmentPrompt();
+        Scanner scanner = new Scanner(System.in);
+        while (!getOut) {
+            str = scanner.nextLine();
+            switch (str) {
+                case ("1"):
+                    addToy();
+                    break;
+                case (""):
+                    getOut = true;
+                    break;
 
+            } // switch
+
+        } // while
+    }
 }
