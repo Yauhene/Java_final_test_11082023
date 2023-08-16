@@ -13,8 +13,7 @@ public class Main {
         Assortment.fromFile("toys.txt");
         Assortment.toFile("toys.bak");
 //        Assortment.addToy();
-//        System.out.println("Игрушка с id 4 имеет индекс: " + Assortment.findById("4"));
-//        Menu.startMenu(toysList);
+        Menu.startMenu(Toy.toysList);
 
         Crook.createListOfPrizes(10, "конструктор", "робот", "кукла");
         //for (int i = 0; i < toysList.size(); i++) {

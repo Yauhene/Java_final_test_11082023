@@ -15,6 +15,10 @@ public class Assortment {
 
 //    public static ArrayList<Toy> toysList = new ArrayList<>();
 
+    /**
+     * Метод добавления новой игрушки.
+     * Запрашивает значения полей нового экземпляра Toy, создает экземпляр
+     */
     public static void addToy() {
         boolean onceMore = true;
         String tempStr = "";
@@ -24,26 +28,31 @@ public class Assortment {
         String tNote = "";
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Введите тип игрушки (слово-описание, \"мишка\", \"мышка\"  и т.п.: ");
+        System.out.print("Введите тип игрушки (слово-описание, \"мишка\", \"мышка\"  и т.п.:  ");
         tType = scanner.nextLine();
-        System.out.println("Введите примечание ( \"синий\", \"резиновый\" , \"без уха\" и т.п.: ");
+        System.out.print("Введите примечание ( \"синий\", \"резиновый\" , \"без уха\" и т.п.:  ");
         tNote = scanner.nextLine();
         while (onceMore) {
             onceMore = false;
-            System.out.println("Введите вероятность выпадания игрушки, число: ");
+            System.out.print("Введите вероятность выпадания игрушки, число:  ");
             tempStr = scanner.nextLine();
             if (tempStr.length() <= 2 && tempStr.matches("[.0-9]+")) {
                 tFreq = Integer.parseInt(tempStr);
+                onceMore = false;
+                break;
             } else {
                 System.out.println("Введено неверное значение, попробуем еще раз.");
                 onceMore = true;
             }
         }
         Toy t = new Toy(tFreq, tType, tNote);
-        toysList.add(t);
+        Toy.toysList.add(t);
+        System.out.println("Завершаем Assortment.addToy()");
     }
 
-
+    /**
+     * Метод создания первоначального тестового списка игрушек
+     */
     public static void startArray() {
 
         Toy toy1 = new Toy(1, "конструктор", "металлический");
@@ -63,7 +72,7 @@ public class Assortment {
 
     public static void toFile(String fileName) throws Exception {
 //        System.out.println("Пошли печатать в файл ================================");
-        ArrayList<Toy> arr = toysList;
+        ArrayList<Toy> arr = Toy.toysList;
         System.out.println("arr.size() = " + arr.size());
         String tempStr = "";
         FileWriter writer = new FileWriter(fileName);
@@ -95,7 +104,7 @@ public class Assortment {
                 String tStr = scanner.nextLine();
                 String tempStrArr[] = tStr.split(";");
                 Toy t = new Toy(Integer.parseInt(tempStrArr[1]), tempStrArr[2], tempStrArr[3]);
-                toysList.add(t);
+                Toy.toysList.add(t);
                 System.out.println(t);
             }
         } catch(Exception e) {
@@ -130,18 +139,20 @@ public class Assortment {
     }
 
     public static void accortmentPrompt() {
+        System.out.println("----------------------------------------------------------------------");
+        System.out.println("***************** МЕНЮ РЕДАКТИРОВАНИЯ СПИСКА ИГРУШЕК **********************");
+        System.out.println();
         String str = "Выберите нужное действие, введя с клавиатуры соответствующую цифру:  " + "\n";
         str += "1 - Добавить игрушку" + "\n";
         str += "2 - Удалить игрушку" + "\n";
-        str += "3 - Редактировать игрушку" + "\n";
         str += "клавиша 'Enter' - выйти в главное меню" + "\n";
         str += "Ваш выбор:";
-        System.out.println(str);
+        System.out.print(str);
     }
     public static void assortmentMenu() {
         boolean getOut = false;
         String str = "";
-        ArrayList<Toy> arr = toysList;
+        ArrayList<Toy> arr = Toy.toysList;
         accortmentPrompt();
         Scanner scanner = new Scanner(System.in);
         while (!getOut) {
@@ -149,6 +160,15 @@ public class Assortment {
             switch (str) {
                 case ("1"):
                     addToy();
+                    getOut = true;
+                    break;
+                case ("2"):
+                    System.out.print("Введите id удаляемой игрушки: ");
+                    String strId = scanner.nextLine();
+                    int foundIndex = Toy.findById(strId);
+                    if (strId.matches("[0-9]+") && foundIndex > 0){
+                        Toy.delete(String.format("%d",foundIndex));
+                    }
                     break;
                 case (""):
                     getOut = true;
