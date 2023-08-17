@@ -1,5 +1,6 @@
 import Assortment.Assortment;
 import Toy.Toy;
+import crook.Crook;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -27,7 +28,9 @@ public class Menu {
             startPrompt();
             choice = scanner.nextLine();
             if (choice.equals("")) {
-                System.out.println("Выбрано: пустая строка");
+//                System.out.println("Выбрано: пустая строка");
+                getOut = true;
+                break;
             }
             switch (choice) {
                 case ("1"):
@@ -36,9 +39,33 @@ public class Menu {
                 case ("2"):
                     Assortment.printToysList();
                     break;
+                case ("3"):
+                    Crook.createListOfPrizes(10, "конструктор", "робот", "кукла");
+                    if (Crook.prizesList.size() != 0) {
+                        System.out.println();
+                        System.out.println("Список призов создан: ");
+                        Crook.printArr(Crook.prizesList);
+                    }
+                    else {
+                        System.out.println();
+                        System.out.println("Список призов не создан: ");
+                    }
+                    break;
+                case ("4"):
+                    if (Crook.prizesList.size() != 0) {
+                        System.out.println();
+                        Crook.printArr(Crook.prizesList);
+                        Crook.printArr(Crook.prizesList);
+                        Crook.prizeDrawing(Crook.prizesList);
+                    }
+                    else {
+                        System.out.println();
+                        System.out.println("Список призов не создан: ");
+                    }
+
+                    break;
                 case (""):
                     getOut = true;
-                    System.out.println("getOut = true");
                     break;
                 default:
                     System.out.println("Что-то пошло не так...");

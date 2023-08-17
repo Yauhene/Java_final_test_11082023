@@ -73,7 +73,6 @@ public class Assortment {
     public static void toFile(String fileName) throws Exception {
 //        System.out.println("Пошли печатать в файл ================================");
         ArrayList<Toy> arr = Toy.toysList;
-        System.out.println("arr.size() = " + arr.size());
         String tempStr = "";
         FileWriter writer = new FileWriter(fileName);
         try {
@@ -146,7 +145,7 @@ public class Assortment {
         str += "1 - Добавить игрушку" + "\n";
         str += "2 - Удалить игрушку" + "\n";
         str += "клавиша 'Enter' - выйти в главное меню" + "\n";
-        str += "Ваш выбор:";
+        str += "Ваш выбор: ";
         System.out.print(str);
     }
     public static void assortmentMenu() {
@@ -169,6 +168,7 @@ public class Assortment {
                     if (strId.matches("[0-9]+") && foundIndex > 0){
                         Toy.delete(String.format("%d",foundIndex));
                     }
+                    getOut = true;
                     break;
                 case (""):
                     getOut = true;

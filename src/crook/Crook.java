@@ -4,59 +4,16 @@ import Toy.Toy;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Crook {
     public int strokeSteps = 3; // минимальное количество генераций в такте
     public int strokePos = 0; // состояние такта, от 0 до 2, три состояния
     public int[] resArray = {0, 0, 0};
     public int tempRes;
+    public static ArrayList<Toy> prizesList = new ArrayList<Toy>();
 
-//    public Crook() {
-//        this.resArray = resArray;
-//        this.strokePos = strokePos;
-//        this.strokeSteps = strokeSteps;
-//    }
 
-//    /**
-//     * Метод проверки наличия в тактовой матрице resArray значения vol
-//     * В случае отсутствия - внесение в тактовую матрицу
-//     * @param vol
-//     * @return
-//     */
-//    public boolean checkVol(int vol) {
-//        System.out.println("........... Работаем в crook.checkVol ...............");
-//        boolean res = false;
-//        System.out.println("vol = " + vol);
-//
-//        if (resArray[vol-1] == vol)  {
-//            System.out.println("resArray[vol-1] == vol");
-//            res = true;
-//        }
-//        else {
-//            res = false;
-//            System.out.println("Значения нет в resArray");
-//            if (this.strokePos == this.strokeSteps ) {
-//                resArray[vol-1] = vol;
-//                resArray = new int[]{0,0,0};
-//                strokePos = 0;
-//            }
-//            else {
-//                resArray[vol - 1] = vol;
-//                strokePos++;
-//            }
-//            printResArray();
-////            if (this.strokePos == this.strokeSteps) {
-////
-////            }
-//        }
-//
-//        return res;
-//    }
-//    public void printResArray() {
-//        for (int i = 0; i < resArray.length; i++) {
-//            System.out.println("resArray[" + i +"] = " + resArray[i]);
-//        }
-//    }
     /**
      * Метод формирует список призов по заданным типам игрушек в соответствии с их весом (частотой выпадания)
      *
@@ -67,6 +24,7 @@ public class Crook {
      * @return
      */
     public static ArrayList<Toy> createListOfPrizes(int prizesCount, String cat_1, String cat_2, String cat_3) {
+//        PriorityQueue<Integer> pq = new PriorityQueue<>();
         ArrayList<Toy> cat_1_list = new ArrayList<>();
         ArrayList<Toy> cat_2_list = new ArrayList<>();
         ArrayList<Toy> cat_3_list = new ArrayList<>();
@@ -76,7 +34,6 @@ public class Crook {
         // веса игрушек данного типа
         cat_1_list = thisTypeArray(Toy.toysList, cat_1); // отбор игрушек по типу cat_1
         int cat_1_count = prizesCount * cat_1_list.get(0).frequency / 100;
-//        System.out.println("cat_1_count = " + cat_1_count);
         Random random = new Random();
         for (int i = 0; i < cat_1_count; i++) {
             if (cat_1_list.size() > 1) {
@@ -85,13 +42,9 @@ public class Crook {
             else {
                 pos = 0;
             }
-//            System.out.println("pos = " + pos);
-//            all_list.add(cat_1_list.get(pos));
+            all_list.add(cat_1_list.get(pos));
         }
-//        System.out.println("Добавили \"" + cat_1 + "\" -------------------------------------");
-//        printArr(all_list);
         cat_2_list = thisTypeArray(Toy.toysList, cat_2); // отбор игрушек по типу cat_2
-//        System.out.println("Размер списка \"" + cat_2 + "\": " + cat_2_list.size());
         int cat_2_count = prizesCount * cat_2_list.get(0).frequency / 100;
         Random random2 = new Random();
         for (int i = 0; i < cat_2_count; i++) {
@@ -101,12 +54,8 @@ public class Crook {
             else {
                 pos = 0;
             }
-//            System.out.println("pos = " + pos);
-//            all_list.add(cat_2_list.get(pos));
+            all_list.add(cat_2_list.get(pos));
         }
-//        System.out.println("Добавили \"" + cat_2 + "\" -------------------------------------");
-//        printArr(all_list);
-
         cat_3_list = thisTypeArray(Toy.toysList, cat_3); // // отбор игрушек по типу cat_3
         int cat_3_count = prizesCount * cat_3_list.get(0).frequency / 100;
         for (int i = 0; i < cat_3_count; i++) {
@@ -116,12 +65,10 @@ public class Crook {
             else {
                 pos = 0;
             }
-//            System.out.println("pos = " + pos);
-//            all_list.add(cat_3_list.get(pos));
+            all_list.add(cat_3_list.get(pos));
         }
-//        System.out.println("Добавили \"" + cat_3 + "\" -------------------------------------");
-//        printArr(all_list);
-        return all_list;
+        prizesList = shuffleList(all_list);
+        return prizesList;
     }
 
     /**
@@ -137,7 +84,6 @@ public class Crook {
                 toysThisType.add(arr.get(i));
             }
         }
-        printArr(toysThisType);
         return toysThisType;
     }
 
@@ -145,5 +91,65 @@ public class Crook {
         for (Toy toy : arr) {
             System.out.println(toy);
         }
+    }
+
+    public static void prizeDrawing(ArrayList<Toy> arr) {
+        int randPosition = 0;
+        int counter = 0;
+        String pause = "";
+//        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("!!!!!!!!!!!!!!!! Розыгрыш призов начинается !!!!!!!!!!!!!!!!!!!!!");
+        System.out.println();
+//        System.out.println("Для старта нажмите клавишу \"Enter\" ");
+//        pause = scanner.next();
+        System.out.println("Список призов:");
+        printArr(prizesList);
+        System.out.println();
+        while (arr.size() > 0) {
+            if (arr.size() == 1) {
+                counter++;
+                System.out.println("шаг " + counter);
+                System.out.println("Вы получаете следующий приз:  ");
+                System.out.println(arr.get(0).id + ". " + arr.get(0).toyType + " " + arr.get(0).note);
+                arr.remove(0);
+                System.out.println();
+                System.out.println("Для продолжения нажмите клавишу \"Enter\" ");
+                System.out.println();
+                pause = scanner.nextLine();
+            }
+            else {
+                counter++;
+                System.out.println("шаг " + counter);
+//                randPosition = random.nextInt(0,arr.size());
+                System.out.println("Вы получаете следующий приз:  ");
+//                System.out.println(arr.get(randPosition));
+                System.out.println(arr.get(0).id + ". " + arr.get(0).toyType + " " +arr.get(0).note);
+//                arr.add(arr_in.get(randPosition));
+                arr.remove(0);
+                System.out.println();
+                System.out.println("Для продолжения нажмите клавишу \"Enter\" ");
+                System.out.println();
+                pause = scanner.nextLine();
+            }
+        }
+    }
+
+    public static ArrayList<Toy> shuffleList(ArrayList<Toy> arr_in) {
+        ArrayList<Toy> arr_out = new ArrayList<>();
+        int randPosition = 0;
+        Random random = new Random();
+        while (arr_in.size() > 0) {
+            if (arr_in.size() == 1) {
+                arr_out.add(arr_in.get(0));
+                arr_in.remove(0);
+            }
+            else {
+                randPosition = random.nextInt(0,arr_in.size());
+                arr_out.add(arr_in.get(randPosition));
+                arr_in.remove(randPosition);
+            }
+        }
+        return arr_out;
     }
 }

@@ -1,10 +1,7 @@
 import Assortment.Assortment;
 import Toy.Toy;
-import crook.Crook;
 
 import java.util.ArrayList;
-
-import static Assortment.Assortment.printToysList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -15,7 +12,12 @@ public class Main {
 //        Assortment.addToy();
         Menu.startMenu(Toy.toysList);
 
-        Crook.createListOfPrizes(10, "конструктор", "робот", "кукла");
+//        System.out.println();
+//        System.out.println("Список призов создан: ");
+//        ArrayList<Toy> prizesList = Crook.createListOfPrizes(10, "конструктор", "робот", "кукла");
+//        System.out.println(prizesList);
+
+//        printArr(selectedList);
         //for (int i = 0; i < toysList.size(); i++) {
             //System.out.println("i = " + i);
 
@@ -25,6 +27,6 @@ public class Main {
 //            crook.printResArray();
       //  }
         Assortment.toFile("toys.txt");
-        printToysList();
+//        printToysList();
     }
 }
