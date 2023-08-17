@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 import static Toy.Toy.toysList;
@@ -51,7 +50,7 @@ public class Assortment {
     }
 
     /**
-     * Метод создания первоначального тестового списка игрушек
+     * Метод создания первоначального тестового списка игрушек (тестовый)
      */
     public static void startArray() {
 
@@ -64,12 +63,20 @@ public class Assortment {
 
     }
 
+    /**
+     * Метод вывода в консоль общего списка игрушек
+     */
     public static void printToysList() {
         for (int i = 0; i < toysList.size(); i++) {
             System.out.println(toysList.get(i));
         }
     }
 
+    /**
+     * Запись общего списка игрушек в файл
+     * @param fileName
+     * @throws Exception
+     */
     public static void toFile(String fileName) throws Exception {
 //        System.out.println("Пошли печатать в файл ================================");
         ArrayList<Toy> arr = Toy.toysList;
@@ -92,6 +99,30 @@ public class Assortment {
         }
     }
 
+    /**
+     * Сохранение тиража в файл "results.txt"
+     * @param fileName имя файла для сохранения
+     * @param res строковое содержимое файла
+     * @throws Exception
+     */
+    public static void drowingToFile(String fileName, String res) throws Exception {
+//        System.out.println("Пошли печатать в файл ================================");
+
+        FileWriter writer = new FileWriter(fileName);
+        try {
+            writer.write(res);
+            writer.append('\n');
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Чтение общего списка игрушек из файла
+     * @param fileName
+     */
     public static void fromFile(String fileName) {
         String tempStr = "";
 //        String tempStrArr[];
@@ -112,32 +143,11 @@ public class Assortment {
 
 
     }
-    public static int Get(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(100) + 1; // Генерируем случайное число от 1 до 100
 
-        if (randomNumber < 20) {
-            return 1; // 20% вероятность выпадения числа 1
-        } else if (randomNumber < 40) {
-            return 2; // 20% вероятность выпадения числа 2
-        } else {
-            return 3; // 60% вероятность выпадения числа 3
-        }
-    }
-    public static int doubleGet() {
-        Random random = new Random();
-        double randNum = random.nextDouble();
-
-        if (randNum < 0.2) {
-            return 1;
-        } else if (randNum < 0.2) {
-            return 2;
-        } else {
-            return 3;
-        }
-    }
-
-    public static void accortmentPrompt() {
+    /**
+     * Вывод строки-приглашения для меню работы с асортиментом в консоль
+     */
+    public static void assortmentPrompt() {
         System.out.println("----------------------------------------------------------------------");
         System.out.println("***************** МЕНЮ РЕДАКТИРОВАНИЯ СПИСКА ИГРУШЕК **********************");
         System.out.println();
@@ -148,11 +158,15 @@ public class Assortment {
         str += "Ваш выбор: ";
         System.out.print(str);
     }
+
+    /**
+     * Меню работы с ассортиментом (общим списком игрушек)
+     */
     public static void assortmentMenu() {
         boolean getOut = false;
         String str = "";
         ArrayList<Toy> arr = Toy.toysList;
-        accortmentPrompt();
+        assortmentPrompt();
         Scanner scanner = new Scanner(System.in);
         while (!getOut) {
             str = scanner.nextLine();
@@ -168,11 +182,16 @@ public class Assortment {
                     if (strId.matches("[0-9]+") && foundIndex > 0){
                         Toy.delete(String.format("%d",foundIndex));
                     }
+                    else {
+                        System.out.println("Некорректный ввод");
+                    }
                     getOut = true;
                     break;
                 case (""):
                     getOut = true;
                     break;
+//                default:
+//                    System.out.println("Некорректный ввод");
 
             } // switch
 

@@ -7,11 +7,14 @@ import java.util.Scanner;
 
 public class Menu {
 
+    /**
+     * Вывод строки-приглашения
+     */
     public static void startPrompt() {
         System.out.println();
         System.out.println("***************** ГЛАВНОЕ МЕНЮ **********************");
-        System.out.println();
         String str = "Выберите нужное действие, введя с клавиатуры соответствующую цифру:  " + "\n";
+        System.out.println();
         str += "1 - Редактировать список игрушек (добавить/удалить)" + "\n";
         str += "2 - Показать список игрушек в консоли" + "\n";
         str += "3 - Создать список призов" + "\n";
@@ -20,7 +23,12 @@ public class Menu {
         str += "Ваш выбор: ";
         System.out.print(str);
     }
-    public static void startMenu(ArrayList<Toy> arr) {
+
+    /**
+     * Главное меню
+     * @param arr список игрушек
+     */
+    public static void startMenu(ArrayList<Toy> arr) throws Exception {
         boolean getOut = false;
         String choice = "start";
         Scanner scanner = new Scanner(System.in);
@@ -28,7 +36,6 @@ public class Menu {
             startPrompt();
             choice = scanner.nextLine();
             if (choice.equals("")) {
-//                System.out.println("Выбрано: пустая строка");
                 getOut = true;
                 break;
             }
@@ -56,23 +63,19 @@ public class Menu {
                         System.out.println();
                         Crook.printArr(Crook.prizesList);
                         Crook.printArr(Crook.prizesList);
-                        Crook.prizeDrawing(Crook.prizesList);
+                        Crook.Get(Crook.prizesList);
                     }
                     else {
                         System.out.println();
                         System.out.println("Список призов не создан: ");
                     }
-
                     break;
                 case (""):
                     getOut = true;
                     break;
                 default:
                     System.out.println("Что-то пошло не так...");
-
             } // switch
-
-
         } // while
     }
 }

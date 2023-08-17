@@ -1,5 +1,6 @@
 package crook;
 
+import Assortment.Assortment;
 import Toy.Toy;
 
 import java.util.ArrayList;
@@ -87,22 +88,28 @@ public class Crook {
         return toysThisType;
     }
 
+    /**
+     * Вывод в консоль массива игрушек
+     * @param arr
+     */
     public static void printArr(ArrayList<Toy> arr) {
         for (Toy toy : arr) {
             System.out.println(toy);
         }
     }
 
-    public static void prizeDrawing(ArrayList<Toy> arr) {
+    /**
+     * Метод визуализации розыгрыша призов и сохранения результатов тиража в файл
+     * @param arr
+     */
+    public static void Get(ArrayList<Toy> arr) throws Exception {
         int randPosition = 0;
         int counter = 0;
+        String strToFile = "";
         String pause = "";
-//        Random random = new Random();
         Scanner scanner = new Scanner(System.in);
         System.out.println("!!!!!!!!!!!!!!!! Розыгрыш призов начинается !!!!!!!!!!!!!!!!!!!!!");
         System.out.println();
-//        System.out.println("Для старта нажмите клавишу \"Enter\" ");
-//        pause = scanner.next();
         System.out.println("Список призов:");
         printArr(prizesList);
         System.out.println();
@@ -110,8 +117,11 @@ public class Crook {
             if (arr.size() == 1) {
                 counter++;
                 System.out.println("шаг " + counter);
-                System.out.println("Вы получаете следующий приз:  ");
-                System.out.println(arr.get(0).id + ". " + arr.get(0).toyType + " " + arr.get(0).note);
+                System.out.print("Вы получаете следующий приз:  ");
+                System.out.println("артикул " + arr.get(0).id + ". " + arr.get(0).toyType + " " + arr.get(0).note);
+                strToFile += "шаг " + counter + ": ";
+                strToFile += "артикул " + arr.get(0).id + ". " + arr.get(0).toyType + " " + arr.get(0).note;
+                strToFile += "\n";
                 arr.remove(0);
                 System.out.println();
                 System.out.println("Для продолжения нажмите клавишу \"Enter\" ");
@@ -121,11 +131,11 @@ public class Crook {
             else {
                 counter++;
                 System.out.println("шаг " + counter);
-//                randPosition = random.nextInt(0,arr.size());
-                System.out.println("Вы получаете следующий приз:  ");
-//                System.out.println(arr.get(randPosition));
-                System.out.println(arr.get(0).id + ". " + arr.get(0).toyType + " " +arr.get(0).note);
-//                arr.add(arr_in.get(randPosition));
+                System.out.print("Вы получаете следующий приз:  ");
+                System.out.println("артикул " + arr.get(0).id + ". " + arr.get(0).toyType + " " +arr.get(0).note);
+                strToFile += "шаг " + counter + ": ";
+                strToFile += "артикул " + arr.get(0).id + ". " + arr.get(0).toyType + " " + arr.get(0).note;
+                strToFile += "\n";
                 arr.remove(0);
                 System.out.println();
                 System.out.println("Для продолжения нажмите клавишу \"Enter\" ");
@@ -133,8 +143,14 @@ public class Crook {
                 pause = scanner.nextLine();
             }
         }
+            Assortment.drowingToFile("results.txt", strToFile);
     }
 
+    /**
+     * Метод "перемешивания" призов в списке призов для розыгрыша
+     * @param arr_in
+     * @return
+     */
     public static ArrayList<Toy> shuffleList(ArrayList<Toy> arr_in) {
         ArrayList<Toy> arr_out = new ArrayList<>();
         int randPosition = 0;

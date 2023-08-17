@@ -24,6 +24,11 @@ public class Toy {
         Toy toy = new Toy(frequency, toyType, note);
         toysList.add(toy);
     }
+
+    /**
+     * Метод удаления игрушки из общего массива toysList
+     * @param index индекс удаляемой игрушки
+     */
     public static void delete(String index) {
         toysList.remove(Integer.parseInt(index));
     }
@@ -36,11 +41,13 @@ public class Toy {
     public static int findById(String id) {
         int index = -1;
         System.out.println("задан id = " + id);
-        for (int i = 0; i < toysList.size(); i++) {
-            if (toysList.get(i).id == Integer.parseInt(id)) {
-                System.out.println("i: " + i + ", примечание:" + toysList.get(i).note);
-                index = i;
-                break;
+        if (id.matches("[0-9]+")){
+            for (int i = 0; i < toysList.size(); i++) {
+                if (toysList.get(i).id == Integer.parseInt(id)) {
+                    System.out.println("i: " + i + ", примечание:" + toysList.get(i).note);
+                    index = i;
+                    break;
+                }
             }
         }
         return index;
