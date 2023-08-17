@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Работа со списком призов
+ */
 public class Crook {
-    public int strokeSteps = 3; // минимальное количество генераций в такте
-    public int strokePos = 0; // состояние такта, от 0 до 2, три состояния
-    public int[] resArray = {0, 0, 0};
-    public int tempRes;
-    public static ArrayList<Toy> prizesList = new ArrayList<Toy>();
+    /**
+     * @param prizesList список призов для розыгрыша
+     */
+    public static ArrayList<Toy> prizesList = new ArrayList<Toy>(); // список для розыгрыша
 
 
     /**
@@ -90,7 +92,7 @@ public class Crook {
 
     /**
      * Вывод в консоль массива игрушек
-     * @param arr
+     * @param arr - любой ArrayList<Toy>
      */
     public static void printArr(ArrayList<Toy> arr) {
         for (Toy toy : arr) {
