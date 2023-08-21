@@ -44,7 +44,7 @@ public class Toy {
         if (id.matches("[0-9]+")){
             for (int i = 0; i < toysList.size(); i++) {
                 if (toysList.get(i).id == Integer.parseInt(id)) {
-                    System.out.println("i: " + i + ", примечание:" + toysList.get(i).note);
+                    System.out.println("i: " + i + ", " + "тип " + toysList.get(i).toyType + ", примечание: " + toysList.get(i).note);
                     index = i;
                     break;
                 }

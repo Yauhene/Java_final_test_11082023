@@ -17,7 +17,7 @@ public class Menu {
         System.out.println();
         str += "1 - Редактировать список игрушек (добавить/удалить)" + "\n";
         str += "2 - Показать список игрушек в консоли" + "\n";
-        str += "3 - Создать список призов" + "\n";
+        str += "3 - Создать список призов (обязательный шаг перед началом тиража) " + "\n";
         str += "4 - Запустить тираж" + "\n";
         str += "клавиша 'Enter' - выйти из программы" + "\n";
         str += "Ваш выбор: ";
@@ -35,10 +35,6 @@ public class Menu {
         while (!getOut) {
             startPrompt();
             choice = scanner.nextLine();
-            if (choice.equals("")) {
-                getOut = true;
-                break;
-            }
             switch (choice) {
                 case ("1"):
                     Assortment.assortmentMenu();
@@ -72,6 +68,8 @@ public class Menu {
                     break;
                 case (""):
                     getOut = true;
+                    System.out.println("Ну, дело хозяйское, Вам виднее.");
+                    System.out.println("До новых встреч!");
                     break;
                 default:
                     System.out.println("Что-то пошло не так...");

@@ -12,8 +12,6 @@ import static Toy.Toy.toysList;
 
 public class Assortment {
 
-//    public static ArrayList<Toy> toysList = new ArrayList<>();
-
     /**
      * Метод добавления новой игрушки.
      * Запрашивает значения полей нового экземпляра Toy, создает экземпляр
@@ -27,9 +25,9 @@ public class Assortment {
         String tNote = "";
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Введите тип игрушки (слово-описание, \"мишка\", \"мышка\"  и т.п.:  ");
+        System.out.print("Введите тип игрушки (слово-описание, \"мишка\", \"мышка\"  и т.п.):  ");
         tType = scanner.nextLine();
-        System.out.print("Введите примечание ( \"синий\", \"резиновый\" , \"без уха\" и т.п.:  ");
+        System.out.print("Введите примечание ( \"синий\", \"резиновый\" , \"без уха\" и т.п.):  ");
         tNote = scanner.nextLine();
         while (onceMore) {
             onceMore = false;
@@ -46,7 +44,6 @@ public class Assortment {
         }
         Toy t = new Toy(tFreq, tType, tNote);
         Toy.toysList.add(t);
-        System.out.println("Завершаем Assortment.addToy()");
     }
 
     /**
@@ -78,7 +75,6 @@ public class Assortment {
      * @throws Exception
      */
     public static void toFile(String fileName) throws Exception {
-//        System.out.println("Пошли печатать в файл ================================");
         ArrayList<Toy> arr = Toy.toysList;
         String tempStr = "";
         FileWriter writer = new FileWriter(fileName);
@@ -106,7 +102,6 @@ public class Assortment {
      * @throws Exception
      */
     public static void drowingToFile(String fileName, String res) throws Exception {
-//        System.out.println("Пошли печатать в файл ================================");
 
         FileWriter writer = new FileWriter(fileName);
         try {
@@ -166,9 +161,11 @@ public class Assortment {
         boolean getOut = false;
         String str = "";
         ArrayList<Toy> arr = Toy.toysList;
-        assortmentPrompt();
+//        assortmentPrompt();
         Scanner scanner = new Scanner(System.in);
         while (!getOut) {
+            assortmentPrompt();
+            getOut = false;
             str = scanner.nextLine();
             switch (str) {
                 case ("1"):
@@ -183,16 +180,19 @@ public class Assortment {
                         Toy.delete(String.format("%d",foundIndex));
                     }
                     else {
-                        System.out.println("Некорректный ввод");
+                        System.out.println("!!!! Некорректный ввод, несуществующий id !!!!!!!");
+                        getOut = false;
+                        break;
                     }
-                    getOut = true;
+                    getOut = false;
                     break;
                 case (""):
                     getOut = true;
                     break;
-//                default:
-//                    System.out.println("Некорректный ввод");
-
+                default:
+                    System.out.println("!!! Некорректный ввод кода операции !!!");
+                    getOut = false;
+                    break;
             } // switch
 
         } // while

@@ -125,9 +125,7 @@ public class Crook {
                 strToFile += "артикул " + arr.get(0).id + ". " + arr.get(0).toyType + " " + arr.get(0).note;
                 strToFile += "\n";
                 arr.remove(0);
-                System.out.println();
                 System.out.println("Для продолжения нажмите клавишу \"Enter\" ");
-                System.out.println();
                 pause = scanner.nextLine();
             }
             else {
@@ -139,9 +137,7 @@ public class Crook {
                 strToFile += "артикул " + arr.get(0).id + ". " + arr.get(0).toyType + " " + arr.get(0).note;
                 strToFile += "\n";
                 arr.remove(0);
-                System.out.println();
                 System.out.println("Для продолжения нажмите клавишу \"Enter\" ");
-                System.out.println();
                 pause = scanner.nextLine();
             }
         }
